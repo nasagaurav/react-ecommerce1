@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './style.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -14,17 +15,19 @@ import Errorpage from './pages/Errorpage';
 
 export default function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <Home />
-      <Login />
-      <Signup />
-      <Profile />
-      <Orders />
-      <Cart />
-      <Logout />
-      <Errorpage />
+      <Routes>
+        <Route path="" element={<Home />} />
+        <Route path="Login" element={<Login />} />
+        <Route path="Signup" element={<Signup />} />
+        <Route path="Profile" element={<Profile />} />
+        <Route path="Orders" element={<Orders />} />
+        <Route path="Cart" element={<Cart />} />
+        <Route path="Logout" element={<Logout />} />
+        <Route path="*" element={<Errorpage />} />
+      </Routes>
       <Footer />
-    </div>
+    </BrowserRouter>
   );
 }
