@@ -1,9 +1,14 @@
 import axios from 'axios';
 
+function img(id) {
+  return `https://photospheric-damage.000webhostapp.com/a (${id}).jpg`;
+}
+
 export const getAllProducts = async () => {
   let data = await axios
     .get('https://l-ecommerce-default-rtdb.firebaseio.com/products.json')
     .then((res) => res.data)
+    .then((d) => d.map((x) => ({ ...x, image: img(x.id) })))
     .catch((e) => []);
 
   return data;
