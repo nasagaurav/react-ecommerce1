@@ -1,6 +1,8 @@
+import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { getAllProducts, getAllTags, getAllFilters } from './services';
+
 import './style.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,10 +17,16 @@ import Logout from './pages/Logout';
 import Errorpage from './pages/Errorpage';
 
 export default function App() {
+  const dispatch = useDispatch();
+
   const loadAll = () => {
-    getAllProducts().then((d) => console.log('getAllProducts', d));
-    getAllTags().then((d) => console.log('getAllTags', d));
-    getAllFilters().then((d) => console.log('getAllFilters', d));
+    getAllProducts().then((d) =>
+      dispatch({ type: 'getAllProducts', payload: d })
+    );
+    getAllTags().then((d) => dispatch({ type: 'getAllTags', payload: d }));
+    getAllFilters().then((d) =>
+      dispatch({ type: 'getAllFilters', payload: d })
+    );
   };
 
   useEffect(loadAll, []);
