@@ -6,9 +6,23 @@ function Home() {
   const { products, filters, tags } = state;
   return (
     <div>
-      <div>filters</div>
-      <div>tags</div>
-      <div>products</div>
+      <div>
+        {filters.map((item, index) => (
+          <button key={index}>{item}</button>
+        ))}
+      </div>
+      <div>
+        {tags.map((item) => (
+          <button key={item.t}>
+            {item.t} - {item.c}
+          </button>
+        ))}
+      </div>
+      <div>
+        {products.map((item) => (
+          <Card key={item.id} {...item} />
+        ))}
+      </div>
     </div>
   );
 }
