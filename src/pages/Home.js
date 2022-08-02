@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Card from '../components/Card';
 function Home() {
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
