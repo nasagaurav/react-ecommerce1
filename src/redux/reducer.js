@@ -4,6 +4,7 @@ const intialState = {
   tags: [],
   loggedin: false,
   user: null,
+  users: [],
 };
 
 function reducer(state = intialState, action) {
@@ -15,6 +16,9 @@ function reducer(state = intialState, action) {
       return { ...state, tags: action.payload };
     case 'getAllProducts':
       return { ...state, products: action.payload };
+    case 'getAllUsers':
+      return { ...state, users: action.payload };
+
     default:
       return state;
   }

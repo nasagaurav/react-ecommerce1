@@ -1,7 +1,12 @@
 import { useDispatch } from 'react-redux';
 import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { getAllProducts, getAllTags, getAllFilters } from './services';
+import {
+  getAllProducts,
+  getAllTags,
+  getAllFilters,
+  getAllUsers,
+} from './services';
 
 import './style.css';
 import Header from './components/Header';
@@ -27,6 +32,7 @@ export default function App() {
     getAllFilters().then((d) =>
       dispatch({ type: 'getAllFilters', payload: d })
     );
+    getAllUsers().then((d) => dispatch({ type: 'getAllUsers', payload: d }));
   };
 
   useEffect(loadAll, []);
