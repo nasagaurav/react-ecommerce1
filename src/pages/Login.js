@@ -24,6 +24,7 @@ function Login() {
       setStorage('phone', foundUser.phone);
       setStorage('password', foundUser.password);
       toast(`welcome ${foundUser.name}`);
+      dispatch({ type: 'login', payload: foundUser });
       navigate('/');
     } else {
       toast('user not found');
