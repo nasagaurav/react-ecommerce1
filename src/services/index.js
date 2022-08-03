@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+export const setStorage = (key, value) => {
+  localStorage.setItem(key, value);
+  // localStorage.setItem("x",100);
+  // setStorage("x",100)
+};
+export const getStorage = (key) => {
+  // getStorage("x")
+  return localStorage.getItem(key) || '';
+};
+
 function img(id) {
   return `https://photospheric-damage.000webhostapp.com/a (${id}).jpg`;
 }
