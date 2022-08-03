@@ -1,10 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeStorage } from '../services';
 function Header() {
   const state = useSelector((s) => s);
-
+  const dispatch = useDispatch();
   const { user, loggedin } = state;
+
+  const logout = () => {
+    removeStorage('uid');
+    removeStorage('name');
+    removeStorage('email');
+    removeStorage('phone');
+    removeStorage('password');
+    dispatch({ type: 'logout' });
+  };
 
   return (
     <header>
@@ -17,7 +27,7 @@ function Header() {
         {loggedin && <Link to="/profile">profile</Link>}
         {loggedin && <Link to="/orders">orders</Link>}
         {loggedin && <Link to="/cart">cart</Link>}
-        {loggedin && <Link to="/logout">logout</Link>}
+        {loggedin && <button onClick={logout}>logout ({user.name})</button>}
       </div>
     </header>
   );

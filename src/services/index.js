@@ -24,6 +24,9 @@ export const getStorage = (key) => {
   // getStorage("x")
   return localStorage.getItem(key) || '';
 };
+export const removeStorage = (key) => {
+  localStorage.removeItem(key);
+};
 
 function img(id) {
   return `https://photospheric-damage.000webhostapp.com/a (${id}).jpg`;
