@@ -1,9 +1,23 @@
+import { getStorage } from '../services';
+let loggedin = false;
+let user = null;
+if (getStorage('uid')) {
+  loggedin = true;
+  user = {
+    uid: getStorage('uid'),
+    name: getStorage('name'),
+    email: getStorage('email'),
+    phone: getStorage('phone'),
+    password: getStorage('password'),
+  };
+}
+
 const intialState = {
   filters: [],
   products: [],
   tags: [],
-  loggedin: false,
-  user: null,
+  loggedin: loggedin,
+  user: user,
   users: [],
 };
 
