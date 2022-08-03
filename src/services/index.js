@@ -1,10 +1,27 @@
 import axios from 'axios';
 
+export const transform = (a) => {
+  let ids = Object.keys(a);
+  let vals = Object.values(a);
+  let temp = [];
+  ids.forEach((x, i) => {
+    temp.push({
+      id: ids[i],
+      ...vals[i],
+    });
+  });
+  return temp;
+};
+
+export const isUserEmailExists = (users, formData) => {
+  return users.some((x) => x.email === formData.email);
+};
 export const userExists = (users, formData) => {
   return users.some(
     (x) => x.email === formData.email && x.password === formData.password
   );
 };
+
 export const userDetails = (users, formData) => {
   if (userExists(users, formData)) {
     return users.find(
@@ -61,6 +78,19 @@ export const getAllUsers = async () => {
   let data = await axios
     .get('https://l-ecommerce-default-rtdb.firebaseio.com/users.json')
     .then((res) => res.data)
+    .then((d) => {
+      transform(d);
+    })
+    .catch((e) => []);
+
+  return data;
+};
+export const signupUser = async (payload) => {
+  let data = await axios
+    .post('https://l-ecommerce-default-rtdb.firebaseio.com/users.json', payload)
+    .then((res) => res.data)
+    .then((d) => d.name) //i.e returning id
+    .then((id) => ({ ...payload, id })) //
     .catch((e) => []);
 
   return data;
