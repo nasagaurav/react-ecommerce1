@@ -39,3 +39,11 @@ export const getAllFilters = async () => {
 
   return data;
 };
+export const getAllUsers = async () => {
+  let data = await axios
+    .get('https://l-ecommerce-default-rtdb.firebaseio.com/users.json')
+    .then((res) => res.data)
+    .catch((e) => []);
+
+  return data;
+};
