@@ -8,7 +8,7 @@ const intialState = {
 };
 
 function reducer(state = intialState, action) {
-  console.log('reducer', action);
+  console.log(action.type, action);
   switch (action.type) {
     case 'getAllFilters':
       return { ...state, filters: action.payload };
