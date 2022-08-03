@@ -1,8 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { removeStorage } from '../services';
+import { toast } from 'react-toastify';
 function Header() {
+  const navigate = useNavigate();
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
   const { user, loggedin } = state;
@@ -14,6 +17,8 @@ function Header() {
     removeStorage('phone');
     removeStorage('password');
     dispatch({ type: 'logout' });
+    toast('you have been successfully logged out');
+    navigate('/logout');
   };
 
   return (
