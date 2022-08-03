@@ -2,6 +2,8 @@ const intialState = {
   filters: [],
   products: [],
   tags: [],
+  loggedin: false,
+  user: null,
 };
 
 function reducer(state = intialState, action) {
