@@ -3,7 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { userExists, userDetails, setStorage } from '../services';
+import { useNavigate } from 'react-router-dom';
 function Login() {
+  const navigate = useNavigate();
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
   const { users } = state;
@@ -21,6 +23,8 @@ function Login() {
       setStorage('email', foundUser.email);
       setStorage('phone', foundUser.phone);
       setStorage('password', foundUser.password);
+      toast(`welcome ${foundUser.name}`);
+      navigate('/');
     } else {
       toast('user not found');
     }
