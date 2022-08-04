@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getQty } from '../services';
 function Card(props) {
   const state = useSelector((s) => s);
-  const { user, loggedin } = state;
+  const { user, loggedin, cart } = state;
   const product = {
     pid: props.id,
     title: props.title,
@@ -24,6 +25,8 @@ function Card(props) {
       password: user.password,
     };
   };
+
+  const qty = getQty(cart, user.id, product.pid);
   return (
     <div>
       <img width={100} height={100} src={props.image} alt="" />
