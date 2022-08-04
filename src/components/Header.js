@@ -8,7 +8,7 @@ function Header() {
   const navigate = useNavigate();
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
-  const { user, loggedin } = state;
+  const { user, loggedin, cart, orders } = state;
 
   const logout = () => {
     removeStorage('uid');
@@ -30,8 +30,8 @@ function Header() {
         {!loggedin && <Link to="/login">login</Link>}
         {!loggedin && <Link to="/signup">signup</Link>}
         {loggedin && <Link to="/profile">profile</Link>}
-        {loggedin && <Link to="/orders">orders</Link>}
-        {loggedin && <Link to="/cart">cart</Link>}
+        {loggedin && <Link to="/orders">orders ({orders.length})</Link>}
+        {loggedin && <Link to="/cart">cart ({cart.length})</Link>}
         {loggedin && <button onClick={logout}>logout ({user.name})</button>}
       </div>
     </header>
