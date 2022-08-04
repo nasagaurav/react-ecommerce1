@@ -130,3 +130,24 @@ export const signupUser = async (payload) => {
 
   return data;
 };
+export const createCart = async (payload) => {
+  let data = await axios
+    .post('https://l-ecommerce-default-rtdb.firebaseio.com/cart.json', payload)
+    .then((res) => res.data)
+    .then((d) => d.name) //i.e returning id
+    .then((id) => ({ ...payload, id })) //
+    .catch((e) => []);
+
+  return data;
+};
+export const updateQty = async (payload) => {
+  let data = await axios
+    .patch(
+      `https://l-ecommerce-default-rtdb.firebaseio.com/cart/${payload.id}.json`,
+      { qty: payload.qty }
+    )
+    .then((res) => res.data)
+    .catch((e) => []);
+
+  return data;
+};

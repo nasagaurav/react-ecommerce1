@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getQty } from '../services';
+import { getQty, updateQty, createCart } from '../services';
 function Card(props) {
   const state = useSelector((s) => s);
   const { user, loggedin, cart } = state;
@@ -16,7 +16,7 @@ function Card(props) {
     image: props.image,
   };
   const addToCart = () => {
-    const payload = {
+    let payload = {
       ...product,
       uid: user.id,
       name: user.name,
@@ -24,9 +24,18 @@ function Card(props) {
       phone: user.phone,
       password: user.password,
     };
+    if (_qty > 0) {
+      // update [patch]
+      payload = { ...payload, qty: _qty + 1 };
+      updateQty(payload);
+    } else {
+      payload = { ...payload, qty: 1 };
+      // insert [post]
+      createCart(payload);
+    }
   };
 
-  const qty = getQty(cart, user.id, product.pid);
+  const _qty = getQty(cart, user.id, product.pid);
   return (
     <div>
       <img width={100} height={100} src={props.image} alt="" />
@@ -37,7 +46,7 @@ function Card(props) {
       <div>{props.rating}</div>
       <div>{props.discount}</div>
       <div>{props.tags}</div>
-      {loggedin && <div onClick={addToCart}>add to cart (0)</div>}
+      {loggedin && <div onClick={addToCart}>add to cart ({_qty})</div>}
     </div>
   );
 }
