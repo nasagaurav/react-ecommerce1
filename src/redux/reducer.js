@@ -19,6 +19,8 @@ const intialState = {
   loggedin: loggedin,
   user: user,
   users: [],
+  cart: [],
+  orders: [],
 };
 
 function reducer(state = intialState, action) {
@@ -32,6 +34,11 @@ function reducer(state = intialState, action) {
       return { ...state, products: action.payload };
     case 'getAllUsers':
       return { ...state, users: action.payload };
+    case 'getAllCart':
+      return { ...state, cart: action.payload };
+    case 'getAllOrders':
+      return { ...state, orders: action.payload };
+
     case 'logout':
       return { ...state, user: null, loggedin: false };
     case 'login':
