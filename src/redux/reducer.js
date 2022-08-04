@@ -42,6 +42,8 @@ function reducer(state = intialState, action) {
       return { ...state, cart: action.payload };
     case 'getAllOrders':
       return { ...state, orders: action.payload };
+    case 'removeFromCart':
+      return { ...state, cart: action.payload };
 
     case 'logout':
       return { ...state, user: null, loggedin: false };

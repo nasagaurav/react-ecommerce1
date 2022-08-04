@@ -159,3 +159,11 @@ export const updateQty = async (payload) => {
 
   return data;
 };
+export const removeFromCartService = async (payload) => {
+  let data = await axios
+    .delete(`https://l-ecommerce-default-rtdb.firebaseio.com/cart/${id}.json`)
+    .then((res) => null)
+    .catch((e) => null);
+
+  return data;
+};
