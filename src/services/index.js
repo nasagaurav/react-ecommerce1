@@ -88,6 +88,27 @@ export const getAllUsers = async () => {
 
   return data;
 };
+export const getAllCart = async () => {
+  let data = await axios
+    .get('https://l-ecommerce-default-rtdb.firebaseio.com/cart.json')
+    .then((res) => res.data)
+    .then((d) => {
+      return transform(d);
+    })
+    .catch((e) => []);
+  return data;
+};
+export const getAllOrders = async () => {
+  let data = await axios
+    .get('https://l-ecommerce-default-rtdb.firebaseio.com/orders.json')
+    .then((res) => res.data)
+    .then((d) => {
+      return transform(d);
+    })
+    .catch((e) => []);
+  return data;
+};
+
 export const signupUser = async (payload) => {
   let data = await axios
     .post('https://l-ecommerce-default-rtdb.firebaseio.com/users.json', payload)

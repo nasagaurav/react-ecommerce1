@@ -6,6 +6,8 @@ import {
   getAllTags,
   getAllFilters,
   getAllUsers,
+  getAllCart,
+  getAllOrders,
 } from './services';
 
 import './style.css';
@@ -33,6 +35,8 @@ export default function App() {
       dispatch({ type: 'getAllFilters', payload: d })
     );
     getAllUsers().then((d) => dispatch({ type: 'getAllUsers', payload: d }));
+    getAllCart().then((d) => dispatch({ type: 'getAllCart', payload: d }));
+    getAllOrders().then((d) => dispatch({ type: 'getAllOrders', payload: d }));
   };
 
   useEffect(loadAll, []);
