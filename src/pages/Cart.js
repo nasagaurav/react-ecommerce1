@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-
+import { removeFromCartService } from '../services';
 function Cart() {
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
