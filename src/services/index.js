@@ -5,10 +5,13 @@ export const transform = (a) => {
   let vals = Object.values(a);
   let temp = [];
   ids.forEach((x, i) => {
-    temp.push({
-      id: ids[i],
-      ...vals[i],
-    });
+    temp = [
+      ...temp,
+      {
+        id: ids[i],
+        ...vals[i],
+      },
+    ];
   });
   return temp;
 };
@@ -79,7 +82,7 @@ export const getAllUsers = async () => {
     .get('https://l-ecommerce-default-rtdb.firebaseio.com/users.json')
     .then((res) => res.data)
     .then((d) => {
-      transform(d);
+      return transform(d);
     })
     .catch((e) => []);
 

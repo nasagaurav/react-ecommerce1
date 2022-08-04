@@ -1,9 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { signupUser, isUserEmailExists } from '../services';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 function Signup() {
+  const navigate = useNavigate();
   const state = useSelector((s) => s);
   const { users } = state;
   const dispatch = useDispatch();
@@ -18,7 +20,10 @@ function Signup() {
       toast('failed to signup');
     } else {
       signupUser(formData).then((d) => {
-        console.log(d);
+        // console.log(d);
+        dispatch({ type: 'signup', payload: d });
+        toast('signup successfull');
+        navigate('/login');
       });
     }
   };

@@ -36,6 +36,8 @@ function reducer(state = intialState, action) {
       return { ...state, user: null, loggedin: false };
     case 'login':
       return { ...state, user: action.payload, loggedin: true };
+    case 'signup':
+      return { ...state, users: [...state.users, action.payload] };
 
     default:
       return state;
