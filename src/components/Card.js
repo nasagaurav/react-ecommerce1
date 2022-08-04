@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getQty, updateQty, createCart } from '../services';
+import { getCartId, getQty, updateQty, createCart } from '../services';
 function Card(props) {
   const state = useSelector((s) => s);
+  const dispatch = useDispatch();
   const { user, loggedin, cart } = state;
   const product = {
     pid: props.id,
@@ -26,16 +27,27 @@ function Card(props) {
     };
     if (_qty > 0) {
       // update [patch]
-      payload = { ...payload, qty: _qty + 1 };
-      updateQty(payload);
+      payload = { id: _cid, qty: _qty + 1 };
+      updateQty(payload)
+        .then((d) => {
+          return cart.map((x) => (x.id === _cid ? { ...x, qty: _qty + 1 } : x));
+        })
+        .then((d) => {
+          dispatch({ type: 'updateQty', payload: d });
+        });
     } else {
       payload = { ...payload, qty: 1 };
       // insert [post]
-      createCart(payload);
+      createCart(payload)
+        .then((d) => [...cart, d])
+        .then((d) => {
+          dispatch({ type: 'createCart', payload: d });
+        });
     }
   };
 
   const _qty = getQty(cart, user.id, product.pid);
+  const _cid = getCartId(cart, user.id, product.pid);
   return (
     <div>
       <img width={100} height={100} src={props.image} alt="" />

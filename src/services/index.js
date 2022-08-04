@@ -10,6 +10,14 @@ export const getQty = (a, uid, pid) => {
 
   // return 0 or find qty
 };
+export const getCartId = (a, uid, pid) => {
+  if (a.some((x) => x.uid === uid && x.pid === pid)) {
+    const foundItem = a.find((x) => x.uid === uid && x.pid === pid);
+    return foundItem.id;
+  } else {
+    return '';
+  }
+};
 
 export const transform = (a) => {
   let ids = Object.keys(a);

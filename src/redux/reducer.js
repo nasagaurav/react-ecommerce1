@@ -36,6 +36,10 @@ function reducer(state = intialState, action) {
       return { ...state, users: action.payload };
     case 'getAllCart':
       return { ...state, cart: action.payload };
+    case 'updateQty':
+      return { ...state, cart: action.payload };
+    case 'createCart':
+      return { ...state, cart: action.payload };
     case 'getAllOrders':
       return { ...state, orders: action.payload };
 
