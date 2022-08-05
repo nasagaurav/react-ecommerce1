@@ -4,6 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { userExists, userDetails, setStorage } from '../services';
 import { useNavigate } from 'react-router-dom';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
+import Alert from 'react-bootstrap/Alert';
+
 function Login() {
   const navigate = useNavigate();
   const state = useSelector((s) => s);
@@ -31,20 +36,34 @@ function Login() {
     }
   };
   return (
-    <div>
-      <h1>login page</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input placeholder="email" {...register('email', { required: true })} />
-        {errors.email && <p>email required</p>}
-        <input
-          placeholder="password"
-          {...register('password', { required: true })}
-        />
-        {errors.password && <p>password required</p>}
+    <Container>
+      <br />
+      <br />
+      <Row>
+        <br />
+        <Alert variant="success">
+          <Alert.Heading>Hey, nice to see you</Alert.Heading>
+          <p>login page</p>
+          <hr />
+        </Alert>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className="form-control mb-4"
+            placeholder="email"
+            {...register('email', { required: true })}
+          />
+          {errors.email && <p>email required</p>}
+          <input
+            className="form-control mb-4"
+            placeholder="password"
+            {...register('password', { required: true })}
+          />
+          {errors.password && <p>password required</p>}
 
-        <input type="submit" />
-      </form>
-    </div>
+          <Button>Login as User</Button>
+        </form>
+      </Row>
+    </Container>
   );
 }
 export default Login;
