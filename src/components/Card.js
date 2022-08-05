@@ -1,7 +1,11 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getCartId, getQty, updateQty, createCart } from '../services';
-function Card(props) {
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import ProgressBar from 'react-bootstrap/ProgressBar';
+
+function MyCard(props) {
   const state = useSelector((s) => s);
   const dispatch = useDispatch();
   const { user, loggedin, cart } = state;
@@ -49,17 +53,52 @@ function Card(props) {
   const _qty = getQty(cart, user.id, product.pid);
   const _cid = getCartId(cart, user.id, product.pid);
   return (
-    <div>
-      <img width={100} height={100} src={props.image} alt="" />
-      <div>{props.title}</div>
-      <div>{props.description}</div>
-      <div>{props.old}</div>
-      <div>{props.new}</div>
-      <div>{props.rating}</div>
-      <div>{props.discount}</div>
-      <div>{props.tags}</div>
-      {loggedin && <div onClick={addToCart}>add to cart ({_qty})</div>}
-    </div>
+    <Card style={{ width: '200px' }}>
+      <Card.Img width="100" variant="top" src={props.image} />
+      <Card.Body>
+        <Card.Title>{props.title}</Card.Title>
+        <div>
+          <font size={2} color="red">
+            <del>Rs.{props.old}</del>
+          </font>
+          <big>Rs. {props.new}</big>
+        </div>
+        <div>
+          <i
+            style={{ color: 1 <= props.rating ? 'orange' : 'silver' }}
+            className="fa fa-star"
+          ></i>
+          <i
+            style={{ color: 2 <= props.rating ? 'orange' : 'silver' }}
+            className="fa fa-star"
+          ></i>
+          <i
+            style={{ color: 3 <= props.rating ? 'orange' : 'silver' }}
+            className="fa fa-star"
+          ></i>
+          <i
+            style={{ color: 4 <= props.rating ? 'orange' : 'silver' }}
+            className="fa fa-star"
+          ></i>
+          <i
+            style={{ color: 5 <= props.rating ? 'orange' : 'silver' }}
+            className="fa fa-star"
+          ></i>
+        </div>
+        <ProgressBar
+          label={`${props.discount}%`}
+          variant="warning"
+          now={props.discount}
+        />
+        <div>{props.tags}</div>
+
+        {loggedin && (
+          <Button onClick={addToCart} variant="primary">
+            <i className="fa fa-shopping-cart"></i> ({_qty})
+          </Button>
+        )}
+      </Card.Body>
+    </Card>
   );
 }
-export default Card;
+export default MyCard;
