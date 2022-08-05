@@ -1,3 +1,7 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -20,21 +24,43 @@ function Header() {
     toast('you have been successfully logged out');
     navigate('/logout');
   };
-
+  const hc = (str) => {
+    navigate(str);
+  };
   return (
-    <header>
-      <div className="logo">Ecommerce</div>
-      <div>
-        <Link to="/">home</Link>
-
-        {!loggedin && <Link to="/login">login</Link>}
-        {!loggedin && <Link to="/signup">signup</Link>}
-        {loggedin && <Link to="/profile">profile</Link>}
-        {loggedin && <Link to="/orders">orders ({orders.length})</Link>}
-        {loggedin && <Link to="/cart">cart ({cart.length})</Link>}
-        {loggedin && <button onClick={logout}>logout ({user.name})</button>}
-      </div>
-    </header>
+    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+      <Container>
+        <Navbar.Brand href="#home">Ecommerce</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link onClick={() => hc('/')}>home</Nav.Link>
+            {!loggedin && (
+              <Nav.Link onClick={() => hc('/login')}>login</Nav.Link>
+            )}
+            {!loggedin && (
+              <Nav.Link onClick={() => hc('/signup')}>signup</Nav.Link>
+            )}
+            {loggedin && (
+              <Nav.Link onClick={() => hc('/profile')}>profile</Nav.Link>
+            )}
+            {loggedin && (
+              <Nav.Link onClick={() => hc('/orders')}>
+                orders ({orders.length})
+              </Nav.Link>
+            )}
+            {loggedin && (
+              <Nav.Link onClick={() => hc('/cart')}>
+                cart ({cart.length})
+              </Nav.Link>
+            )}
+            {loggedin && (
+              <Nav.Link onClick={logout}>logout ({user.name})</Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 export default Header;
